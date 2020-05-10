@@ -1,11 +1,19 @@
 import React from 'react';
-import { Text, View, StatusBar, Button, StyleSheet } from 'react-native';
-import Sets from './components/Sets';
+import People from './components/People';
+import AddPerson from './components/AddPerson';
+
+enum Pages {
+  SETS = 'sets',
+  CREATE = 'create'
+}
 
 const App = () => {
+
+  const [page, setPage] = React.useState<Pages>(Pages.SETS);
+
   return (
     <>
-     <Sets />
+     {page === Pages.SETS ? <People setPage={setPage} /> : <AddPerson setPage={setPage} />}
     </>
   )
 }
