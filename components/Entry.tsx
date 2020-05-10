@@ -15,8 +15,8 @@ const Entry = ({person, setPage}: any) => {
       </View>
       <StatusBar backgroundColor="grey" />
       <View style={styles.container}>
-        <View style={styles.container}>
-            <Text style={{ fontSize: 30, color: 'grey' }}>{person.name}</Text>
+        <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+            <Text style={{fontSize: 30, color: 'grey' }}>{person.name}</Text>
         </View>
         <View style={{flex: 3}}>
             <View style={styles.content}>
@@ -32,9 +32,9 @@ const Entry = ({person, setPage}: any) => {
                 <Text style={styles.entryValue}>{getBmi(person.weights[0], person.height / 100).toFixed(2)}</Text>
             </View>
         </View>
-        <View style={{ width: '100%', justifyContent: 'flex-end' }}>
-          <Button title="< GO BACK" onPress={() => setPage('people')} />
-        </View>
+      </View>
+      <View style={{ width: '100%', justifyContent: 'center', position: 'absolute', bottom: 0 }}>
+        <Button title="< GO BACK" onPress={() => setPage('people')} />
       </View>
     </>
   )
