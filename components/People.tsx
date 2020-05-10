@@ -1,8 +1,14 @@
 import React from 'react';
-import { Text, View, StatusBar, Button, StyleSheet } from 'react-native';
+import { Text, View, StatusBar, Button, StyleSheet, TouchableOpacity } from 'react-native';
 const data = require('./testData');
 
-const People = ({setPage}: any) => {
+const People = ({setPage, setPerson}: any) => {
+
+  const goToEntry = (person: any) => {
+    setPerson(person);
+    setPage('entry');
+  }
+
   return (
     <>
       <View style={styles.appName}>
@@ -13,7 +19,7 @@ const People = ({setPage}: any) => {
       <StatusBar backgroundColor="grey" />
       <View style={styles.container}>
         <View style={styles.container}>
-          {data ? data.map((person: any) => (<Text key={person.name} style={{ fontSize: 30, color: 'grey' }}>{person.name}</Text>)) : <Text style={{ fontSize: 50, color: 'grey' }}>
+          {data ? data.map((person: any) => (<TouchableOpacity key={person.name} onPress={() => goToEntry(person)}><Text style={{ fontSize: 30, color: 'grey' }}>{person.name}</Text></TouchableOpacity>)) : <Text style={{ fontSize: 50, color: 'grey' }}>
             No Sets Yet
           </Text>}
         </View>
@@ -29,7 +35,7 @@ const styles = StyleSheet.create({
   appName: {
     width: '100%',
     position: 'absolute',
-    top: 0,
+    justifyContent: 'center',
     padding: 5,
     backgroundColor: 'purple'
   },

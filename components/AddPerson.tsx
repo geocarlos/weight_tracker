@@ -6,7 +6,7 @@ const AddPerson = ({setPage}: any) => {
     <>
       <View style={styles.appName}>
         <Text style={{ color: 'white' }}>
-          Weight Tracker
+          Add Person
         </Text>
       </View>
       <StatusBar backgroundColor="grey" />

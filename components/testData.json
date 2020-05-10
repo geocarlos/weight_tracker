@@ -3,18 +3,21 @@
         "name": "John Doe",
         "height": "170",
         "weights": [
+            85
         ]
     },
     {
         "name": "Mary Lynn",
-        "height": "170",
+        "height": "172",
         "weights": [
+            61
         ]
     },
     {
         "name": "Jane Doe",
-        "height": "170",
+        "height": "168",
         "weights": [
+            55
         ]
     }
 ]
