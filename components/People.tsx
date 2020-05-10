@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StatusBar, Button, StyleSheet } from 'react-native';
 const data = require('./testData');
 
-const Sets = ({setPage}: any) => {
+const People = ({setPage}: any) => {
   return (
     <>
       <View style={styles.appName}>
@@ -18,7 +18,7 @@ const Sets = ({setPage}: any) => {
           </Text>}
         </View>
         <View style={{ width: '100%', justifyContent: 'flex-end' }}>
-          <Button title="CREATE SET" onPress={() => setPage('create')} />
+          <Button title="ADD CLIENT" onPress={() => setPage('create')} />
         </View>
       </View>
     </>
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Sets;
+export default People;

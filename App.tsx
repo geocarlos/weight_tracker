@@ -1,6 +1,6 @@
 import React from 'react';
-import Sets from './components/Sets';
-import CreateRecord from './components/CreateRecord';
+import People from './components/People';
+import AddPerson from './components/AddPerson';
 
 enum Pages {
   SETS = 'sets',
@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <>
-     {page === Pages.SETS ? <Sets setPage={setPage} /> : <CreateRecord />}
+     {page === Pages.SETS ? <People setPage={setPage} /> : <AddPerson setPage={setPage} />}
     </>
   )
 }
