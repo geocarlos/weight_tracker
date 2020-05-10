@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StatusBar, Button, StyleSheet } from 'react-native';
 const data = require('./testData');
 
-const Sets = () => {
+const Sets = ({setPage}: any) => {
   return (
     <>
       <View style={styles.appName}>
@@ -18,7 +18,7 @@ const Sets = () => {
           </Text>}
         </View>
         <View style={{ width: '100%', justifyContent: 'flex-end' }}>
-          <Button title="CREATE SET" onPress={() => console.log('New Set')} />
+          <Button title="CREATE SET" onPress={() => setPage('create')} />
         </View>
       </View>
     </>
