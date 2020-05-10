@@ -21,7 +21,7 @@ const AddPerson = ({setPage}: any) => {
           </View>
       </View>
       <View style={{ width: '100%', justifyContent: 'flex-end' }}>
-        <Button title="< GO BACK" onPress={() => setPage('sets')} />
+        <Button title="< GO BACK" onPress={() => setPage('people')} />
       </View>
     </>
   )

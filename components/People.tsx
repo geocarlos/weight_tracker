@@ -18,7 +18,7 @@ const People = ({setPage}: any) => {
           </Text>}
         </View>
         <View style={{ width: '100%', justifyContent: 'flex-end' }}>
-          <Button title="ADD CLIENT" onPress={() => setPage('create')} />
+          <Button title="ADD PERSON" onPress={() => setPage('addPerson')} />
         </View>
       </View>
     </>
