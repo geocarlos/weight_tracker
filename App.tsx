@@ -3,6 +3,8 @@ import People from './src/components/People';
 import AddPerson from './src/components/AddPerson';
 import Entry from './src/components/Entry';
 import AddEntry from './src/components/AddEntry';
+import { Provider } from 'react-redux';
+import store from './src/store';
 
 enum Pages {
   PEOPLE = 'people',
@@ -24,9 +26,9 @@ const App = () => {
   }
 
   return (
-    <>
+    <Provider store={store}>
      {View[page]}
-    </>
+    </Provider>
   )
 }
 
