@@ -2,11 +2,13 @@ import React from 'react';
 import People from './components/People';
 import AddPerson from './components/AddPerson';
 import Entry from './components/Entry';
+import AddEntry from './components/AddEntry';
 
 enum Pages {
   PEOPLE = 'people',
   ADD = 'addPerson',
-  ENTRY = 'entry'
+  ENTRY = 'entry',
+  ADD_ENTRY = 'addEntry'
 }
 
 const App = () => {
@@ -17,7 +19,8 @@ const App = () => {
   const View = {
     people: <People setPage={setPage} setPerson={setPerson} />,
     addPerson: <AddPerson setPage={setPage} />,
-    entry: <Entry setPage={setPage} person={person} />
+    entry: <Entry setPage={setPage} person={person} />,
+    addEntry: <AddEntry setPage={setPage} />
   }
 
   return (

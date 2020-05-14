@@ -31,6 +31,9 @@ const Entry = ({person, setPage}: any) => {
                 <Text style={styles.entryLabel}>BMI: </Text>
                 <Text style={styles.entryValue}>{getBmi(person.weights[0], person.height / 100).toFixed(2)}</Text>
             </View>
+            <View style={{ width: '50%', justifyContent: 'center'}}>
+              <Button title="Add Weight" onPress={() => setPage('addEntry')} />
+            </View>
         </View>
       </View>
       <View style={{ width: '100%', justifyContent: 'center', position: 'absolute', bottom: 0 }}>
