@@ -1,8 +1,8 @@
 import React from 'react';
-import People from './components/People';
-import AddPerson from './components/AddPerson';
-import Entry from './components/Entry';
-import AddEntry from './components/AddEntry';
+import People from './src/components/People';
+import AddPerson from './src/components/AddPerson';
+import Entry from './src/components/Entry';
+import AddEntry from './src/components/AddEntry';
 
 enum Pages {
   PEOPLE = 'people',
