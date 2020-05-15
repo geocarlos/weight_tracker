@@ -14,7 +14,7 @@ export const peopleList: Reducer<PeopleState, ActionTypes> = (
         case keys.REQUEST_PEOPLE:
             return {...state, isLoading: true};
         case keys.RECEIVE_PEOPLE:
-            return {...state, isLoading: false};
+            return {...state, people: action.people, isLoading: false};
         default:
             return state;
     }

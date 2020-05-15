@@ -7,9 +7,11 @@ function* fetchPeople(action: IRequestPeople) {
     try {
         const data = yield fetch(action.url, {
             method: 'GET',
-            headers: {}
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .then(response => response.json(),)
+        .then(response => response.json())
         yield put(receivePeople(data));
     } catch (error) {
         console.log(error);

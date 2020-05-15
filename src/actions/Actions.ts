@@ -8,9 +8,10 @@ import {
     IReceivePerson 
 } from './IActions';
 import Person from 'src/model/Person';
+import WeightEntry from 'src/model/WeightEntry';
 
 export const addPerson = (person: Person, url: string): IAddPerson => ({type: keys.ADD_PERSON, person, url})
-export const addWeight = (weight: number, personId: number, url: string): IAddWeight => ({type: keys.ADD_WEIGHT, weight, personId, url})
+export const addWeight = (weight: WeightEntry, personId: number, url: string): IAddWeight => ({type: keys.ADD_WEIGHT, weight, personId, url})
 
 export const fetchPeople = (url: string): IRequestPeople => ({type: keys.REQUEST_PEOPLE, url});
 export function receivePeople(people: Array<any>): IReceivePeople {

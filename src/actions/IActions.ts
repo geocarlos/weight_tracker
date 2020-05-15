@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 import keys from './ActionTypeKeys';
 import Person from 'src/model/Person';
+import WeightEntry from 'src/model/WeightEntry';
 
 export interface IAddPerson extends Action {
     readonly type: keys.ADD_PERSON,
@@ -10,7 +11,8 @@ export interface IAddPerson extends Action {
 
 export interface IAddWeight extends Action {
     readonly type: keys.ADD_WEIGHT,
-    weight: number,
+    weight: WeightEntry,
+    personId: number,
     url: string
 }
 

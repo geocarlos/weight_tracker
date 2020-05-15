@@ -1,11 +1,18 @@
 import React from 'react';
 import { Text, View, StatusBar, Button, StyleSheet } from 'react-native';
+import Person from 'src/model/Person';
 
 const getBmi = (weight: number, height: number) => {
     return weight / (height ** 2);
 }
 
-const Entry = ({person, setPage}: any) => {
+interface IProps {
+  person: Person;
+  setPage: any;
+}
+
+
+const Entry = ({person, setPage}: IProps) => {
   return (
     <>
       <View style={styles.appName}>
@@ -25,11 +32,11 @@ const Entry = ({person, setPage}: any) => {
             </View>
             <View style={styles.content}>
                 <Text style={styles.entryLabel}>Latest weight entered: </Text>
-                <Text style={styles.entryValue}>{person.weights[0]}kg</Text>
+                <Text style={styles.entryValue}>{person.weights[person.weights.length - 1].weight}kg</Text>
             </View>
             <View style={styles.content}>
                 <Text style={styles.entryLabel}>BMI: </Text>
-                <Text style={styles.entryValue}>{getBmi(person.weights[0], person.height / 100).toFixed(2)}</Text>
+                <Text style={styles.entryValue}>{getBmi(person.weights[person.weights.length - 1].weight, person.height / 100).toFixed(2)}</Text>
             </View>
             <View style={{ width: '50%', justifyContent: 'center'}}>
               <Button title="Add Weight" onPress={() => setPage('addEntry')} />
