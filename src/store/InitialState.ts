@@ -1,6 +1,11 @@
 import IStore from './IStore';
 
 export const initialState: IStore = {
+    appUser: {
+        user: null,
+        isLoading: false,
+        hasError: false
+    },
     peopleList: {
         people: [],
         isLoading: false,

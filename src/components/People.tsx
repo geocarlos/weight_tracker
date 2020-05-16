@@ -3,14 +3,18 @@ import { Text, View, StatusBar, Button, StyleSheet, TouchableOpacity } from 'rea
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPeople } from '../actions/Actions';
 import Person from 'src/model/Person';
+import UserConfig from 'src/model/UserConfig';
 
 const People = ({setPage, setPerson}: any) => {
   const dispatch = useDispatch();
   const people = useSelector<any, Person[]>(state => state.peopleList.people);
+  const userConfig = useSelector<any, UserConfig | undefined>(state => state.appUser.user);
 
   React.useEffect(() => {
-    dispatch(fetchPeople('http://10.0.2.2:3003/people'));
-  }, [dispatch]);
+    if (userConfig) {
+      dispatch(fetchPeople(`http://10.0.2.2:3003/people/${userConfig.user.username}`));
+    }
+  }, [dispatch, userConfig]);
 
   const goToEntry = (person: Person) => {
     setPerson(person);

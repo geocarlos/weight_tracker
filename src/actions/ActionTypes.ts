@@ -1,6 +1,12 @@
 import {
+    IAddUser,
+    IAddUserSuccess,
+    IAddUserError,
     IAddPerson,
     IAddWeight,
+    IRequestUser,
+    IReceiveUser,
+    IErrorReceivingUser,
     IRequestPeople,
     IReceivePeople, 
     IErrorReceivingPeople, 
@@ -9,6 +15,19 @@ import {
     IErrorReceivingPerson
 } from './IActions';
 
-type ActionTypes = IAddPerson | IAddWeight | IRequestPeople | IReceivePeople | IErrorReceivingPeople | IRequestPerson | IReceivePerson | IErrorReceivingPerson;
+type ActionTypes = IAddUser | 
+IAddUserSuccess | 
+IAddUserError | 
+IAddPerson | 
+IAddWeight | 
+IRequestUser | 
+IReceiveUser | 
+IErrorReceivingUser | 
+IRequestPeople | 
+IReceivePeople | 
+IErrorReceivingPeople | 
+IRequestPerson | 
+IReceivePerson | 
+IErrorReceivingPerson;
 
 export default ActionTypes;

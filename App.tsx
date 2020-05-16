@@ -3,16 +3,19 @@ import People from './src/components/People';
 import AddPerson from './src/components/AddPerson';
 import Entry from './src/components/Entry';
 import AddEntry from './src/components/AddEntry';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from './src/store';
 import RegisterPage from './src/components/RegisterPage';
-import User from './src/model/User';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Text, View } from 'react-native';
 import UserType from './src/model/UserType';
 import UserConfig from './src/model/UserConfig';
+import InitialPage from './src/components/InitialPage';
+import { receiveUser } from './src/actions/Actions';
+import { UserState } from './src/model/UserState';
 
 enum Pages {
+  INITIAL = 'initialPage',
   REGISTER = 'registerPage',
   PEOPLE = 'people',
   ADD = 'addPerson',
@@ -23,13 +26,15 @@ enum Pages {
 
 const Loading = () => (<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text>Loading...</Text></View>);
 
-const App = () => {
+const Start = () => {
 
-  const [user, setUser] = useState<User>();
+  const dispatch = useDispatch();
+  const userConfig = useSelector<UserState, UserConfig | null>(state => state.user);
   const [page, setPage] = useState<Pages>(Pages.LOADING);
   const [person, setPerson] = useState<any>(null);
 
   const View = {
+    initialPage: <InitialPage setPage={setPage} setPerson={setPerson} />,
     people: <People setPage={setPage} setPerson={setPerson} />,
     addPerson: <AddPerson setPage={setPage} />,
     entry: <Entry setPage={setPage} person={person} />,
@@ -38,36 +43,40 @@ const App = () => {
     loading: <Loading />
   }
 
-  const getUser = async () => {
+  const getUser = async (dispatch: any) => {
     try {
       const config = await AsyncStorage.getItem('@userConfig');
       if(!config) {
-        setPage(Pages.REGISTER);
+        setPage(Pages.INITIAL);
       } else {
         const _config: UserConfig = JSON.parse(config || '{}');
-        if(_config?.user.type === UserType.INDIVIDUAL) {
-          setPage(Pages.ENTRY);
-          setPerson(_config.userPerson)
-        }
-        setUser(_config.user);
+        dispatch(receiveUser(_config));
       }
     } catch (error) {
-      console.log(error);
+      console.log('Error:', error);
     }
   }
 
   useEffect(() => {
-    getUser();
-    if(user) {
-      setPage(Pages.PEOPLE);
+    AsyncStorage.removeItem('@userConfig');
+    getUser(dispatch);
+    if (userConfig) {
+      if(userConfig?.user.type === UserType.TRAINER) {
+        setPage(Pages.PEOPLE); 
+      } else {
+        setPerson(userConfig?.userPerson);
+        setPage(Pages.ENTRY);
+      }
     }
-  })
+  }, [dispatch, userConfig])
 
   return (
-    <Provider store={store}>
+    <>
      {View[page]}
-    </Provider>
+    </>
   )
 }
+
+const App = () => (<Provider store={store}><Start /></Provider>);
 
 export default App;

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Picker } from '@react-native-community/picker';
 import { View, Text, TextInput, Button } from 'react-native';
-import UserType from '../../src/model/UserType';
-import UserConfig from '../../src/model/UserConfig';
+import UserType from '../model/UserType';
+import UserConfig from '../model/UserConfig';
+import { addUser } from '../actions/Actions'
 
 const addUserConfig = async (config: UserConfig) => {
     try {
         await AsyncStorage.setItem('@userConfig', JSON.stringify(config));
+        addUser(config, 'http://10.0.2.2:3003/users');
     } catch (error) {
         console.log(error);
     }
