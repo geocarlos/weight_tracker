@@ -1,7 +1,7 @@
 import WeightEntry from "./WeightEntry";
 
 interface Person {
-    id: number,
+    id?: number,
     name: string,
     height: number,
     weights: Array<WeightEntry>
