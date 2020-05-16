@@ -4,6 +4,7 @@ import { initialState } from '../store/InitialState'
 import { Reducer, combineReducers } from 'redux';
 import { PeopleState, PersonState } from 'src/model/PeopleState';
 import IStore from '../store/IStore';
+import { UserState } from 'src/model/UserState';
 
 export const peopleList: Reducer<PeopleState, ActionTypes> = (
     state = initialState.peopleList, action: ActionTypes
@@ -29,12 +30,28 @@ export const individual: Reducer<PersonState, ActionTypes> = (
         case keys.REQUEST_PERSON:
             return {...state, isLoading: true};
         case keys.RECEIVE_PERSON:
-            return {...state, isLoading: false};
+            return {...state, person: action.person, isLoading: false};
         default:
             return state;
     }
 }
 
+export const appUser: Reducer<UserState, ActionTypes> = (
+    state = initialState.appUser, action: ActionTypes
+): UserState => {
+    switch (action.type) {
+        case keys.ADD_USER_SUCCESS:
+            return {...state, isLoading: true};
+        case keys.REQUEST_USER:
+            return {...state, isLoading: true};
+        case keys.RECEIVE_USER:
+            return {...state, user: action.userConfig, isLoading: false};
+        default:
+            return state;
+    }
+}
+
+
 export default combineReducers<IStore>({
-    peopleList, individual
+    appUser, peopleList, individual
 })

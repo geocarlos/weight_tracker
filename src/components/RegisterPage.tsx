@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Picker } from '@react-native-community/picker';
 import { View, Text, TextInput, Button } from 'react-native';
-import UserType from '../../src/model/UserType';
-import UserConfig from '../../src/model/UserConfig';
+import UserType from '../model/UserType';
+import UserConfig from '../model/UserConfig';
+import { addUser } from '../actions/Actions'
+import { useDispatch } from 'react-redux';
 
-const addUserConfig = async (config: UserConfig) => {
+const addUserConfig = async (dispatch: any, config: UserConfig) => {
     try {
         await AsyncStorage.setItem('@userConfig', JSON.stringify(config));
+        dispatch(addUser(config, 'http://10.0.2.2:3003/users'));
     } catch (error) {
         console.log(error);
     }
 }
 
-const RegisterPage = () => {
+const RegisterPage = ({setPage}: any) => {
+    const dispatch = useDispatch();
     const [username, setUsername] = useState<String>('');
     const [name, setName] = useState<string>('');
     const [password, setPassword] = useState<String>('');
@@ -47,7 +51,8 @@ const RegisterPage = () => {
                 <Picker.Item label="Yes" value={'yes'} />
                 <Picker.Item label="No" value={'no'} />
             </Picker>
-            <Button title="Register" onPress={() =>  addUserConfig({
+            <Button title="Register" onPress={() =>  {
+                addUserConfig(dispatch, {
                 user: {
                     username,
                     password,
@@ -60,7 +65,9 @@ const RegisterPage = () => {
                     weights: [{weight, date: new Date()}]
                 },
                 saveWeightsLocally: saveWeightsLocally === 'yes'
-            })} />
+            });
+            setPage('initialPage');
+            }} />
         </View>
     )
 }
