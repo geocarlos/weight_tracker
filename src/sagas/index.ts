@@ -1,6 +1,10 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
 import { receivePeople, receivePerson, receiveUser } from '../actions/Actions';
+<<<<<<< HEAD
 import { IRequestPeople, IRequestPerson, IAddUser, IRequestUser, IAddWeightRequest } from '../actions/IActions';
+=======
+import { IRequestPeople, IRequestPerson, IAddUser, IRequestUser } from '../actions/IActions';
+>>>>>>> bee9ddf66a13097b48e6bb85582310daf758c73d
 import keys from '../actions/ActionTypeKeys';
 
 function* addUser(action: IAddUser) {
@@ -8,6 +12,7 @@ function* addUser(action: IAddUser) {
         const result = yield fetch(action.url, {
             method: 'POST',
             headers: {
+<<<<<<< HEAD
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -15,6 +20,14 @@ function* addUser(action: IAddUser) {
                 userConfig: action.userConfig
             })
         }).then(result => result)
+=======
+                'Content-Type': 'application/json'
+            },
+            body: {
+                userConfig: action.userConfig
+            }
+        })
+>>>>>>> bee9ddf66a13097b48e6bb85582310daf758c73d
         if (result === 'success') {
             yield put({type: keys.ADD_USER_SUCCESS});
         } else {
