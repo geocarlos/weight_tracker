@@ -57,7 +57,7 @@ export interface IRequestUser extends Action {
 
 export interface IReceiveUser extends Action {
     readonly type: keys.RECEIVE_USER,
-    userConfig: UserConfig
+    userConfig?: UserConfig
 }
 
 export interface IErrorReceivingUser extends Action {

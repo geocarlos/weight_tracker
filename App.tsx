@@ -7,12 +7,12 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from './src/store';
 import RegisterPage from './src/components/RegisterPage';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Text, View } from 'react-native';
+import { Text, View, Button, StatusBar, StyleSheet, TouchableOpacity } from 'react-native';
 import UserType from './src/model/UserType';
 import UserConfig from './src/model/UserConfig';
 import InitialPage from './src/components/InitialPage';
 import { receiveUser } from './src/actions/Actions';
-import { UserState } from './src/model/UserState';
+import Settings from './src/components/Settings';
 
 enum Pages {
   INITIAL = 'initialPage',
@@ -21,7 +21,8 @@ enum Pages {
   ADD = 'addPerson',
   ENTRY = 'entry',
   ADD_ENTRY = 'addEntry',
-  LOADING = 'loading'
+  LOADING = 'loading',
+  SETTINGS = 'settings'
 }
 
 const Loading = () => (<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text>Loading...</Text></View>);
@@ -29,24 +30,27 @@ const Loading = () => (<View style={{ flex: 1, justifyContent: 'center', alignIt
 const Start = () => {
 
   const dispatch = useDispatch();
-  const userConfig = useSelector<UserState, UserConfig | null>(state => state.user);
   const [page, setPage] = useState<Pages>(Pages.LOADING);
+  const [previousPage, setPreviousPage] = useState<Pages>(Pages.LOADING);
   const [person, setPerson] = useState<any>(null);
+  const userConfig = useSelector<any, UserConfig | undefined>(state => state.appUser.user);
+  const isLoading = useSelector<any, boolean>(state => state.appUser.isLoading);
 
-  const View = {
+  const CurrentView = {
     initialPage: <InitialPage setPage={setPage} setPerson={setPerson} />,
     people: <People setPage={setPage} setPerson={setPerson} />,
     addPerson: <AddPerson setPage={setPage} />,
     entry: <Entry setPage={setPage} person={person} />,
-    addEntry: <AddEntry setPage={setPage} person={person}/>,
+    addEntry: <AddEntry setPage={setPage} person={person} />,
     registerPage: <RegisterPage setPage={setPage} />,
-    loading: <Loading />
+    loading: <Loading />,
+    settings: <Settings />
   }
 
   const getUser = async (dispatch: any) => {
     try {
       const config = await AsyncStorage.getItem('@userConfig');
-      if(!config) {
+      if (!config) {
         setPage(Pages.INITIAL);
       } else {
         const _config: UserConfig = JSON.parse(config || '{}');
@@ -59,22 +63,57 @@ const Start = () => {
 
   useEffect(() => {
     getUser(dispatch);
+  }, [dispatch]);
+
+  useEffect(() => {
     if (userConfig) {
-      if(userConfig?.user.type === UserType.TRAINER) {
-        setPage(Pages.PEOPLE); 
-      } else {
-        setPerson(userConfig?.userPerson);
-        setPage(Pages.ENTRY);
+      const firstPage = userConfig.user.type === UserType.TRAINER ? Pages.PEOPLE : Pages.ENTRY;
+      if (firstPage === Pages.ENTRY) {
+        setPerson(userConfig.userPerson);
       }
+      setPage(isLoading ? Pages.LOADING : firstPage);
+    } else {
+      setPage(Pages.INITIAL);
     }
-  }, [dispatch, userConfig])
+  }, [userConfig]);
 
   return (
     <>
-     {View[page]}
+      <View style={styles.appName}>
+        <Text style={{ color: 'white' }}>
+          Weight Tracker
+          </Text>
+        <View style={styles.settingsButton}>
+          <TouchableOpacity onPress={() => {
+            setPreviousPage(page);
+            setPage(page === Pages.SETTINGS ? previousPage : Pages.SETTINGS);}}>
+            <Text style={{color: 'white'}}>{page === Pages.SETTINGS ? 'Back' : 'Settings'}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <StatusBar backgroundColor="grey" />
+      {CurrentView[page]}
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  appName: {
+    width: '100%',
+    position: 'absolute',
+    justifyContent: 'center',
+    padding: 5,
+    backgroundColor: 'purple'
+  },
+  settingsButton: {
+    width: '20%',
+    position: 'absolute',
+    top: 5,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
 
 const App = () => (<Provider store={store}><Start /></Provider>);
 

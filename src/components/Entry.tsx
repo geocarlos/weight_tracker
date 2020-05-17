@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StatusBar, Button, StyleSheet } from 'react-native';
+import { Text, View, Button, StyleSheet } from 'react-native';
 import Person from 'src/model/Person';
 
 const getBmi = (weight: number, height: number) => {
@@ -15,12 +15,6 @@ interface IProps {
 const Entry = ({person, setPage}: IProps) => {
   return (
     <>
-      <View style={styles.appName}>
-        <Text style={{ color: 'white' }}>
-          Weight Tracker
-          </Text>
-      </View>
-      <StatusBar backgroundColor="grey" />
       <View style={styles.container}>
         <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
             <Text style={{fontSize: 30, color: 'grey' }}>{person.name}</Text>

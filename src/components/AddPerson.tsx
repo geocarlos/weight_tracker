@@ -1,15 +1,9 @@
 import React from 'react';
-import { Text, View, StatusBar, Button, StyleSheet, TextInput } from 'react-native';
+import { Text, View, Button, StyleSheet, TextInput } from 'react-native';
 
 const AddPerson = ({setPage}: any) => {
   return (
     <>
-      <View style={styles.appName}>
-        <Text style={{ color: 'white' }}>
-          Add Person
-        </Text>
-      </View>
-      <StatusBar backgroundColor="grey" />
       <View style={styles.container}>
           <View style={styles.textInputView}>
             <Text style={styles.label}>Name: </Text>

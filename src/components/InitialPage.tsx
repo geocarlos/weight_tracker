@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, AsyncStorage } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import { fetchPeople, fetchUser } from '../actions/Actions';
 import { useDispatch, useSelector } from 'react-redux';
 import UserConfig from '../model/UserConfig';
 import UserType from '../model/UserType';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const InitialPage = ({setPage, setPerson}: any) => {
 
@@ -29,12 +30,12 @@ const InitialPage = ({setPage, setPerson}: any) => {
     }, [userConfig])
 
     return (
-       <>
+       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View>
             <Text>
                 No user found. Please enter a username.
             </Text>
-            <TextInput onChangeText={text => setUsername(text)} />            
+            <TextInput style={{borderBottomWidth: 1, marginBottom: 3, backgroundColor: 'lightgrey'}} onChangeText={text => setUsername(text)} />            
             <Button title="Enter" onPress={() => _fetchUser(username)}/>
         </View>
         <View>
@@ -43,7 +44,7 @@ const InitialPage = ({setPage, setPerson}: any) => {
             </Text>
             <Button title="Create User" onPress={() => setPage('registerPage')}/>
         </View>
-       </>
+       </View>
     )
 }
 

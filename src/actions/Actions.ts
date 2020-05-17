@@ -20,7 +20,7 @@ export const addPerson = (person: Person, url: string): IAddPersonRequest => ({t
 export const addWeight = (weight: WeightEntry, personId: number, url: string): IAddWeightRequest => ({type: keys.ADD_WEIGHT_REQUEST, weight, personId, url})
 
 export const fetchUser = (url: string): IRequestUser => ({type: keys.REQUEST_USER, url});
-export function receiveUser(userConfig: UserConfig): IReceiveUser {
+export function receiveUser(userConfig: UserConfig | undefined): IReceiveUser {
     return {
         type: keys.RECEIVE_USER,
         userConfig
