@@ -25,9 +25,9 @@ const RegisterPage = ({setPage}: any) => {
     const [weight, setWeight] = useState<number>(0)
     const [email, setEmail] = useState<String>('');
     const [type, setType] = useState<UserType>(UserType.INDIVIDUAL);
-    const [saveWeightsLocally, setSaveWeightsLocally] = useState('no');
+    const [saveWeightsLocally, setSaveWeightsLocally] = useState(false);
     return (
-        <View>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Text>
                 Please Enter Info Below
             </Text>
@@ -40,14 +40,16 @@ const RegisterPage = ({setPage}: any) => {
             <Text>
                 Select if you're a trainer or this is just for yourself:
             </Text>
-            <Picker selectedValue={type} onValueChange={value => setType(value.toString() === UserType.INDIVIDUAL ? UserType.INDIVIDUAL : UserType.TRAINER)}>
+            <Picker mode='dropdown' selectedValue={type} onValueChange={value => setType(value.toString() === UserType.INDIVIDUAL ? UserType.INDIVIDUAL : UserType.TRAINER)}>
                 <Picker.Item label="Personal" value={UserType.INDIVIDUAL} />
                 <Picker.Item label="Trainer" value={UserType.TRAINER} />
             </Picker>
             <Text>
                 Wanna save your weights locally?
             </Text>
-            <Picker selectedValue={saveWeightsLocally} onValueChange={value => setSaveWeightsLocally(value.toString())}>
+            <Picker
+                selectedValue={'no'}
+                onValueChange={value => {setSaveWeightsLocally(value.toString() === 'yes'); console.log(value)}}>
                 <Picker.Item label="Yes" value={'yes'} />
                 <Picker.Item label="No" value={'no'} />
             </Picker>
@@ -64,7 +66,7 @@ const RegisterPage = ({setPage}: any) => {
                     height,
                     weights: [{weight, date: new Date()}]
                 },
-                saveWeightsLocally: saveWeightsLocally === 'yes'
+                saveWeightsLocally: saveWeightsLocally
             });
             setPage('initialPage');
             }} />
