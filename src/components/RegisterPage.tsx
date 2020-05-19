@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Picker } from '@react-native-community/picker';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import UserType from '../model/UserType';
 import UserConfig from '../model/UserConfig';
 import { addUser } from '../actions/Actions'
@@ -16,7 +16,7 @@ const addUserConfig = async (dispatch: any, config: UserConfig) => {
     }
 }
 
-const RegisterPage = ({setPage}: any) => {
+const RegisterPage = ({ setPage }: any) => {
     const dispatch = useDispatch();
     const [username, setUsername] = useState<String>('');
     const [name, setName] = useState<string>('');
@@ -26,21 +26,43 @@ const RegisterPage = ({setPage}: any) => {
     const [email, setEmail] = useState<String>('');
     const [type, setType] = useState<UserType>(UserType.INDIVIDUAL);
     const [saveWeightsLocally, setSaveWeightsLocally] = useState(false);
-    return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    const [navigationStep, setNavigationStep] = useState(0);
+
+    const registerNavigation = [
+        <>
+            <TextInput style={styles.input} onChangeText={text => setUsername(text)} />
             <Text>
-                Please Enter Info Below
+                Please Choose a Username
             </Text>
-            <TextInput placeholder="Username" onChangeText={text => setUsername(text)} />
-            <TextInput placeholder="Your full name" onChangeText={text => setName(text)} />
-            <TextInput placeholder="Height" onChangeText={text => setHeight(parseInt(text))} />
-            <TextInput placeholder="Your current weight" onChangeText={text => setWeight(parseInt(text))} />
-            <TextInput placeholder="Password (optional)" onChangeText={text => setPassword(text)} />
-            <TextInput placeholder="E-mail (optional)" onChangeText={text => setEmail(text)} />
+        </>,
+        <>
+            <TextInput style={styles.input} onChangeText={text => setName(text)} />
+            <Text>
+                Enter your full name
+            </Text>
+        </>,
+        <>
+            <TextInput style={styles.input} onChangeText={text => setHeight(parseInt(text))} />
+            <Text>
+                Enter your height
+            </Text>
+        </>,
+        <>
+            <TextInput style={styles.input} onChangeText={text => setWeight(parseInt(text))} />
+            <Text>
+                Enter your current weight
+            </Text>
+        </>,
+        <> 
+            <TextInput style={styles.input} placeholder="Password" onChangeText={text => setPassword(text)} />
+            <TextInput style={styles.input} placeholder="E-mail" onChangeText={text => setEmail(text)} />
+            <Text>Choose a password and provide an e-mail address (optional)</Text>
+        </>,
+        <>
             <Text>
                 Select if you're a trainer or this is just for yourself:
             </Text>
-            <Picker mode='dropdown' selectedValue={type} onValueChange={value => setType(value.toString() === UserType.INDIVIDUAL ? UserType.INDIVIDUAL : UserType.TRAINER)}>
+            <Picker style={{ width: '30%' }} mode='dropdown' selectedValue={type} onValueChange={value => setType(value.toString() === UserType.INDIVIDUAL ? UserType.INDIVIDUAL : UserType.TRAINER)}>
                 <Picker.Item label="Personal" value={UserType.INDIVIDUAL} />
                 <Picker.Item label="Trainer" value={UserType.TRAINER} />
             </Picker>
@@ -48,30 +70,83 @@ const RegisterPage = ({setPage}: any) => {
                 Wanna save your weights locally?
             </Text>
             <Picker
+                style={{ width: '30%' }}
                 selectedValue={'no'}
-                onValueChange={value => {setSaveWeightsLocally(value.toString() === 'yes'); console.log(value)}}>
+                onValueChange={value => { setSaveWeightsLocally(value.toString() === 'yes'); console.log(value) }}>
                 <Picker.Item label="Yes" value={'yes'} />
                 <Picker.Item label="No" value={'no'} />
             </Picker>
-            <Button title="Register" onPress={() =>  {
+        </>,
+        <>
+            <Text>Username</Text>
+            <Text>{username}</Text>
+            <Text>Full name: </Text>
+            <Text>{name}</Text>
+            <Text>Height: </Text>
+            <Text>{height}</Text>
+            <Text>E-mail: </Text>
+            <Text>{email || 'None'}</Text>
+            <Text>User Type: </Text>
+            <Text>{type}</Text>
+            <Text>Save Weights Locally: </Text>
+            <Text>{setSaveWeightsLocally ? 'Yes' : 'No'}</Text>
+            <Text>
+                If everything is correct, click 'Register'
+            </Text>
+             <Button title="Register" onPress={() => {
                 addUserConfig(dispatch, {
-                user: {
-                    username,
-                    password,
-                    email,
-                    type
-                },
-                userPerson: {
-                    name,
-                    height,
-                    weights: [{weight, date: new Date()}]
-                },
-                saveWeightsLocally: saveWeightsLocally
-            });
-            setPage('initialPage');
+                    user: {
+                        username,
+                        password,
+                        email,
+                        type
+                    },
+                    userPerson: {
+                        name,
+                        height,
+                        weights: [{ weight, date: new Date() }]
+                    },
+                    saveWeightsLocally: saveWeightsLocally
+                });
+                setPage('initialPage');
             }} />
-        </View>
+        </>
+    ]
+
+    return (
+        <>
+            <View style={styles.options}>
+                {registerNavigation[navigationStep]}
+            </View>
+            <View style={styles.navButtons}>
+                {navigationStep > 0 && <Button title="Previous" onPress={() => setNavigationStep(state => state - 1)}  />}
+                {navigationStep < registerNavigation.length - 1 && <Button title="Next" onPress={() => setNavigationStep(state => state + 1)}  />}
+            </View>
+        </>
     )
 }
+
+
+const styles = StyleSheet.create({
+    options: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    navButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        width: '100%', 
+        paddingRight: 10,
+        paddingLeft: 10,
+        justifyContent: 'space-evenly',
+        alignItems: 'center' 
+    },
+    input: {
+        width: '90%',
+        marginBottom: 5,
+        borderBottomWidth: 1
+    }
+})
 
 export default RegisterPage;

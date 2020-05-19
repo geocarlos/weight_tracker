@@ -25,12 +25,12 @@ const Settings = () => {
         <>
             <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
                 <Text>Save Weights Locally</Text>
-                <Picker selectedValue={saveWeightsLocally} onValueChange={value => setSaveWeightsLocally(value.toString())}>
+                <Picker style={{ width: '25%' }} selectedValue={saveWeightsLocally} onValueChange={value => setSaveWeightsLocally(value.toString())}>
                     <Picker.Item label="Yes" value={'yes'} />
                     <Picker.Item label="No" value={'no'} />
                 </Picker>
                 <Text>User Type</Text>
-                <Picker selectedValue={type} onValueChange={value => setType(value.toString() === UserType.INDIVIDUAL ? UserType.INDIVIDUAL : UserType.TRAINER)}>
+                <Picker style={{ width: '40%' }} selectedValue={type} onValueChange={value => setType(value.toString() === UserType.INDIVIDUAL ? UserType.INDIVIDUAL : UserType.TRAINER)}>
                     <Picker.Item label="Personal" value={UserType.INDIVIDUAL} />
                     <Picker.Item label="Trainer" value={UserType.TRAINER} />
                 </Picker>

@@ -7,7 +7,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from './src/store';
 import RegisterPage from './src/components/RegisterPage';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Text, View, Button, StatusBar, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StatusBar, StyleSheet, TouchableOpacity } from 'react-native';
 import UserType from './src/model/UserType';
 import UserConfig from './src/model/UserConfig';
 import InitialPage from './src/components/InitialPage';
@@ -80,16 +80,16 @@ const Start = () => {
   return (
     <>
       <View style={styles.appName}>
-        <Text style={{ color: 'white' }}>
-          Weight Tracker
+          <Text style={{ color: 'white' }}>
+            Weight Tracker
           </Text>
-        <View style={styles.settingsButton}>
-          <TouchableOpacity onPress={() => {
-            setPreviousPage(page);
-            setPage(page === Pages.SETTINGS ? previousPage : Pages.SETTINGS);}}>
-            <Text style={{color: 'white'}}>{page === Pages.SETTINGS ? 'Back' : 'Settings'}</Text>
-          </TouchableOpacity>
-        </View>
+          {page !== Pages.LOADING && page !== Pages.INITIAL && <View style={styles.settingsButton}>
+            <TouchableOpacity onPress={() => {
+              setPreviousPage(page);
+              setPage(page === Pages.SETTINGS ? previousPage : Pages.SETTINGS);}}>
+              <Text style={{color: 'white'}}>{page === Pages.SETTINGS || page === Pages.REGISTER ? 'Back' : 'Settings'}</Text>
+            </TouchableOpacity>
+         </View>}
       </View>
       <StatusBar backgroundColor="grey" />
       {CurrentView[page]}
@@ -100,7 +100,7 @@ const Start = () => {
 const styles = StyleSheet.create({
   appName: {
     width: '100%',
-    position: 'absolute',
+    position: 'relative',
     justifyContent: 'center',
     padding: 5,
     backgroundColor: 'purple'
