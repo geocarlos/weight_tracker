@@ -18,44 +18,44 @@ const addUserConfig = async (dispatch: any, config: UserConfig) => {
 
 const RegisterPage = ({ setPage }: any) => {
     const dispatch = useDispatch();
-    const [username, setUsername] = useState<String>('');
+    const [username, setUsername] = useState<string>('');
     const [name, setName] = useState<string>('');
-    const [password, setPassword] = useState<String>('');
+    const [password, setPassword] = useState<string>('');
     const [height, setHeight] = useState<number>(0);
     const [weight, setWeight] = useState<number>(0)
-    const [email, setEmail] = useState<String>('');
+    const [email, setEmail] = useState<string>('');
     const [type, setType] = useState<UserType>(UserType.INDIVIDUAL);
     const [saveWeightsLocally, setSaveWeightsLocally] = useState(false);
     const [navigationStep, setNavigationStep] = useState(0);
 
     const registerNavigation = [
         <>
-            <TextInput style={styles.input} onChangeText={text => setUsername(text)} />
+            <TextInput value={username} style={styles.input} onChangeText={text => setUsername(text)} />
             <Text>
                 Please Choose a Username
             </Text>
         </>,
         <>
-            <TextInput style={styles.input} onChangeText={text => setName(text)} />
+            <TextInput value={name} style={styles.input} onChangeText={text => setName(text)} />
             <Text>
                 Enter your full name
             </Text>
         </>,
         <>
-            <TextInput style={styles.input} onChangeText={text => setHeight(parseInt(text))} />
+            <TextInput keyboardType="numeric" value={height.toString()} style={styles.input} onChangeText={text => setHeight(parseInt(text) || 0)} />
             <Text>
                 Enter your height
             </Text>
         </>,
         <>
-            <TextInput style={styles.input} onChangeText={text => setWeight(parseInt(text))} />
+            <TextInput keyboardType="numeric" value={weight.toString()} style={styles.input} onChangeText={text => setWeight(parseInt(text) || 0)} />
             <Text>
                 Enter your current weight
             </Text>
         </>,
         <> 
-            <TextInput style={styles.input} placeholder="Password" onChangeText={text => setPassword(text)} />
-            <TextInput style={styles.input} placeholder="E-mail" onChangeText={text => setEmail(text)} />
+            <TextInput value={password} style={styles.input} placeholder="Password" onChangeText={text => setPassword(text)} />
+            <TextInput value={email} style={styles.input} placeholder="E-mail" onChangeText={text => setEmail(text)} />
             <Text>Choose a password and provide an e-mail address (optional)</Text>
         </>,
         <>
@@ -72,6 +72,7 @@ const RegisterPage = ({ setPage }: any) => {
             <Picker
                 style={{ width: '30%' }}
                 selectedValue={'no'}
+                mode="dropdown"
                 onValueChange={value => { setSaveWeightsLocally(value.toString() === 'yes'); console.log(value) }}>
                 <Picker.Item label="Yes" value={'yes'} />
                 <Picker.Item label="No" value={'no'} />
