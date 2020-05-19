@@ -1,15 +1,9 @@
 import React from 'react';
-import { Text, View, StatusBar, Button, StyleSheet, TextInput } from 'react-native';
+import { Text, View, Button, StyleSheet, TextInput } from 'react-native';
 
 const AddPerson = ({setPage}: any) => {
   return (
     <>
-      <View style={styles.appName}>
-        <Text style={{ color: 'white' }}>
-          Weight Tracker
-        </Text>
-      </View>
-      <StatusBar backgroundColor="grey" />
       <View style={styles.container}>
           <View style={styles.textInputView}>
             <Text style={styles.label}>Name: </Text>
@@ -21,7 +15,7 @@ const AddPerson = ({setPage}: any) => {
           </View>
       </View>
       <View style={{ width: '100%', justifyContent: 'flex-end' }}>
-        <Button title="< GO BACK" onPress={() => setPage('sets')} />
+        <Button title="< GO BACK" onPress={() => setPage('people')} />
       </View>
     </>
   )
