@@ -13,6 +13,7 @@ import UserConfig from './src/model/UserConfig';
 import InitialPage from './src/components/InitialPage';
 import { receiveUser } from './src/actions/Actions';
 import Settings from './src/components/Settings';
+import AllEntries from './src/components/AllEntries';
 
 enum Pages {
   INITIAL = 'initialPage',
@@ -42,6 +43,7 @@ const Start = () => {
     addPerson: <AddPerson setPage={setPage} />,
     entry: <Entry setPage={setPage} person={person} />,
     addEntry: <AddEntry setPage={setPage} person={person} />,
+    allEntries: <AllEntries setPage={setPage} entries={person?.weights} />,
     registerPage: <RegisterPage setPage={setPage} />,
     loading: <Loading />,
     settings: <Settings />

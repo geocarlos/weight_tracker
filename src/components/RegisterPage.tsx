@@ -60,7 +60,7 @@ const RegisterPage = ({ setPage }: any) => {
         </>,
         <>
             <Text>
-                Select if you're a trainer or this is just for yourself:
+                Select if you're a coach or this is just for yourself:
             </Text>
             <Picker style={{ width: '30%' }} mode='dropdown' selectedValue={type} onValueChange={value => setType(value.toString() === UserType.INDIVIDUAL ? UserType.INDIVIDUAL : UserType.TRAINER)}>
                 <Picker.Item label="Personal" value={UserType.INDIVIDUAL} />

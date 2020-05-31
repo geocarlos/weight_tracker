@@ -35,6 +35,9 @@ const Entry = ({person, setPage}: IProps) => {
             <View style={{ width: '50%', justifyContent: 'center'}}>
               <Button title="Add Weight" onPress={() => setPage('addEntry')} />
             </View>
+            <View style={{ width: '50%', justifyContent: 'center'}}>
+              <Button title="View all entries" onPress={() => setPage('allEntries')} />
+            </View>
         </View>
       </View>
       <View style={{ width: '100%', justifyContent: 'center', position: 'absolute', bottom: 0 }}>
