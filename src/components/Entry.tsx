@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, Button, StyleSheet } from 'react-native';
 import Person from 'src/model/Person';
+import { useSelector } from 'react-redux';
+import UserConfig from '../model/UserConfig';
 
 const getBmi = (weight: number, height: number) => {
     return weight / (height ** 2);
@@ -13,6 +15,8 @@ interface IProps {
 
 
 const Entry = ({person, setPage}: IProps) => {
+  const userConfig = useSelector<any, UserConfig | undefined>(state => state.appUser.user);
+  
   return (
     <>
       <View style={styles.container}>
@@ -40,9 +44,9 @@ const Entry = ({person, setPage}: IProps) => {
             </View>
         </View>
       </View>
-      <View style={{ width: '100%', justifyContent: 'center', position: 'absolute', bottom: 0 }}>
+      {userConfig?.user.type === 'trainer' &&  <View style={{ width: '100%', justifyContent: 'center', position: 'absolute', bottom: 0 }}>
         <Button title="< GO BACK" onPress={() => setPage('people')} />
-      </View>
+      </View>}
     </>
   )
 }

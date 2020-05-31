@@ -9,8 +9,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 const InitialPage = ({setPage, setPerson}: any) => {
 
     const [username, setUsername] = useState<string>('');
-        const dispatch = useDispatch();
-        const userConfig = useSelector<any, UserConfig | undefined>(state => state.appUser.user);
+    const dispatch = useDispatch();
+    const userConfig = useSelector<any, UserConfig | undefined>(state => state.appUser.user);
 
     const _fetchUser = (username: string) => {        
         dispatch(fetchUser(`http://10.0.2.2:3003/users/${username}`));

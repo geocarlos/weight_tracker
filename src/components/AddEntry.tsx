@@ -1,9 +1,9 @@
 import React from 'react';
 import { TextInput, Text, Button, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addWeight } from '../actions/Actions';
-import Person from 'src/model/Person';
-import UserConfig from 'src/model/UserConfig';
+import { addWeight, fetchPeople } from '../actions/Actions';
+import Person from '../model/Person';
+import UserConfig from '../model/UserConfig';
 
 interface IEntry {
     setPage: any,
